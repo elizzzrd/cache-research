@@ -18,7 +18,7 @@ namespace caches
     {
         LRU,
         ARC,
-        TwoQ,
+        TWO_Q,
         LFU,
         LIRS
     };
@@ -29,7 +29,7 @@ namespace caches
         {
             {"LRU",  Policy::LRU},
             {"ARC",  Policy::ARC},
-            {"2Q",   Policy::TwoQ},
+            {"2Q",   Policy::TWO_Q},
             {"LFU",  Policy::LFU},
             {"LIRS", Policy::LIRS}
         };
