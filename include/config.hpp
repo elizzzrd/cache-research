@@ -36,7 +36,7 @@ namespace caches
 
         auto cache = policy_map.find (cache_name);
         if (cache == policy_map.end())
-            throw std:: invalid_argument("Unknown cache policy: " + cache_name);
+            throw std::invalid_argument("Unknown cache policy: " + cache_name);
         return cache->second;
     }
 
