@@ -23,9 +23,9 @@ namespace caches
         LIRS
     };
 
-    inline Policy ParsePolicy (const std:: string& cache_name) 
+    inline Policy ParsePolicy (const std::string& cache_name) 
     {
-        static const std:: unordered_map <std:: string, Policy> policy_map = 
+        static const std:: unordered_map <std::string, Policy> policy_map = 
         {
             {"LRU",  Policy::LRU},
             {"ARC",  Policy::ARC},

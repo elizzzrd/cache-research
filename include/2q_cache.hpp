@@ -70,7 +70,7 @@ namespace caches {
             }
 
             if (a1out_.size() > a1out_limit_) {
-                remove_oldest_ghost();
+                evict_oldest_from_a1out();
             }
         }
 

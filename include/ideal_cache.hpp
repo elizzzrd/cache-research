@@ -53,9 +53,9 @@ namespace caches {
         typename PageIndex::iterator find_page_to_evict() {
             auto page_to_evict = pages_.begin();
 
-            for (auto current_page = pages_.begin(); current_page != pages_.end(); ++current) {
+            for (auto current_page = pages_.begin(); current_page != pages_.end(); ++current_page) {
                 if (current_page->second.next_request_pos > page_to_evict->second.next_request_pos) {
-                    page_to_evict = current;
+                    page_to_evict = current_page;
                 }
             }
 
@@ -112,6 +112,9 @@ namespace caches {
             if (capacity_ != 0) {
                 if (pages_.size() == capacity_) {
                     auto page_to_evict = find_page_to_evict();
+                    if (page_to_evict == pages_.end()) {
+                        throw std::logic_error("IdealCache: no page to evict when cache is full");
+                    }
                     
                     KeyT evicted_key = page_to_evict->first;
 
