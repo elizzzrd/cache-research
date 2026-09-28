@@ -230,7 +230,7 @@ public:
             return {std::move(page), false};
         }
 
-        // 4. Попадание в B2: увеличиваем предпочтение T2.
+        // hit in B2
         if (in_b2) {
             decrease_p();
             replace(true);
@@ -241,7 +241,6 @@ public:
             return {std::move(page), false};
         }
 
-        // 5. Совершенно новый ключ.
         prepare_place_for_new_key();
         add_page(t1_, t1_index_, key, page);
 

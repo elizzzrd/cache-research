@@ -33,11 +33,11 @@ namespace caches
 
     template <typename T>
     using CacheLevel = std::variant<
-        LruPointer,
-        ArcPointer,
-        TwoQPointer,
-        LfuPointer,
-        LirsPointer
+        LruPointer<T>,
+        ArcPointer<T>,
+        TwoQPointer<T>,
+        LfuPointer<T>,
+        LirsPointer<T>
     >;
 
     template <typename T>
@@ -62,10 +62,7 @@ namespace caches
     }
 
     template <typename T, typename Loader>
-    LookupResult<T> access_level(
-        CacheLevel<T>& level,
-        const Key& key,
-        Loader& load)
+    LookupResult<T> access_level(CacheLevel<T>& level, const Key& key, Loader& load)
     {
         if (auto* pointer = std::get_if<LruPointer<T>>(&level))
         {
@@ -83,7 +80,7 @@ namespace caches
         {
             return (*pointer)->lookup_update(key, load);
         }
-        if (auto* pointer = std::get_if<LirsPointer<Y>>(&level))
+        if (auto* pointer = std::get_if<LirsPointer<T>>(&level))
         {
             return (*pointer)->lookup_update(key, load);
         }

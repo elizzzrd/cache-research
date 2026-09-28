@@ -7,10 +7,10 @@
 #include <list>
 #include <unordered_map>
 #include <utility>
+#include <stdexcept>
 
 namespace caches 
 {
-
     template <typename T, typename KeyT = Key>
     class LirsCache {
     private:
@@ -26,9 +26,9 @@ namespace caches
             Status status;
         };
 
-        using StackList = std::list;
+        using StackList = std::list<KeyT>;
         using StackIterator = typename StackList::iterator;
-        using QueueList = std::list;
+        using QueueList = std::list<KeyT>;
         using QueueIterator = typename QueueList::iterator;
 
         std::size_t capacity_;
@@ -40,22 +40,30 @@ namespace caches
         StackList stack_s_;
         QueueList queue_q_;
 
-        std::unordered_map table_;
-        std::unordered_map stack_index_;
-        std::unordered_map queue_index_;
+        std::unordered_map<KeyT, Entry> table_;
+        std::unordered_map<KeyT, StackIterator> stack_index_;
+        std::unordered_map<KeyT, QueueIterator> queue_index_;
 
         void prune_stack() {
-            while (!stack_s_.empty()) {
-                const KeyT bottom_key = stack_s_.back();
-                auto found = table_.find(bottom_key);
-                if (found != table_.end() && found->second.status != Status::LIR) {
-                    stack_index_.erase(bottom_key);
-                    stack_s_.pop_back();
-                } else {
-                    break;
-                }
-            }
+        while (!stack_s_.empty()) {
+            const KeyT bottom_key = stack_s_.back();
+            auto found = table_.find(bottom_key);
+
+            if (found == table_.end()) 
+                throw std::logic_error("LIRS: stack key is missing from table");
+
+            if (found->second.status == Status::LIR) 
+                break;
+
+            const bool is_non_resident = found->second.status == Status::NON_RESIDENT_HIR;
+
+            stack_index_.erase(bottom_key);
+            stack_s_.pop_back();
+
+            if (is_non_resident) 
+                table_.erase(found);
         }
+    }
 
         void add_to_stack(const KeyT& key) {
             stack_s_.push_front(key);
@@ -140,8 +148,9 @@ namespace caches
     public:
         explicit LirsCache(std::size_t capacity)
             : capacity_(capacity),
-              lir_limit_((capacity <= 2) ? 1 : static_cast(capacity * 0.9)),
-              hir_limit_(capacity - lir_limit_) {}
+            lir_limit_((capacity <= 1) ? 0 : capacity - capacity / 10 - static_cast<std::size_t>(capacity % 10 != 0)),
+            hir_limit_(capacity - lir_limit_)
+        {}
 
         LirsCache(const LirsCache&) = delete;
         LirsCache& operator=(const LirsCache&) = delete;
@@ -158,11 +167,9 @@ namespace caches
             return size() == 0;
         }
 
-        template 
-        LookupResult lookup_update(
-            const Key& key,
-            Loader&& load
-        ) {
+        template <typename Loader>
+        LookupResult<T> lookup_update(const Key& key, Loader&& load) 
+        {
             auto found = table_.find(key);
 
             if (found != table_.end() && found->second.status == Status::LIR) {

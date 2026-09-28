@@ -1,0 +1,81 @@
+config,input,policies,levels,capacities,total_capacity,requests,system_hits,source_loads,hit_rate,ideal_hits,ideal_source_loads,ideal_hit_rate,excess_source_loads
+configs/exp2/2q_2q_2q.cfg,experiments/data/hot8_scan_c12_seed42.in,2Q 2Q 2Q,3,4 4 4,12,10000,5478,4522,0.5478,7992,2008,0.7992,2514
+configs/exp2/2q_2q_2q_2q.cfg,experiments/data/hot8_scan_c12_seed42.in,2Q 2Q 2Q 2Q,4,3 3 3 3,12,10000,4524,5476,0.4524,7992,2008,0.7992,3468
+configs/exp2/arc_arc_arc.cfg,experiments/data/hot8_scan_c12_seed42.in,ARC ARC ARC,3,4 4 4,12,10000,4821,5179,0.4821,7992,2008,0.7992,3171
+configs/exp2/arc_arc_arc_arc.cfg,experiments/data/hot8_scan_c12_seed42.in,ARC ARC ARC ARC,4,3 3 3 3,12,10000,3872,6128,0.3872,7992,2008,0.7992,4120
+configs/exp2/lfu_lfu_lfu.cfg,experiments/data/hot8_scan_c12_seed42.in,LFU LFU LFU,3,4 4 4,12,10000,7984,2016,0.7984,7992,2008,0.7992,8
+configs/exp2/lfu_lfu_lfu_lfu.cfg,experiments/data/hot8_scan_c12_seed42.in,LFU LFU LFU LFU,4,3 3 3 3,12,10000,7976,2024,0.7976,7992,2008,0.7992,16
+configs/exp2/lirs_lirs_lirs.cfg,experiments/data/hot8_scan_c12_seed42.in,LIRS LIRS LIRS,3,4 4 4,12,10000,5104,4896,0.5104,7992,2008,0.7992,2888
+configs/exp2/lirs_lirs_lirs_lirs.cfg,experiments/data/hot8_scan_c12_seed42.in,LIRS LIRS LIRS LIRS,4,3 3 3 3,12,10000,3936,6064,0.3936,7992,2008,0.7992,4056
+configs/exp2/lru_lru_lru.cfg,experiments/data/hot8_scan_c12_seed42.in,LRU LRU LRU,3,4 4 4,12,10000,3236,6764,0.3236,7992,2008,0.7992,4756
+configs/exp2/lru_lru_lru_lru.cfg,experiments/data/hot8_scan_c12_seed42.in,LRU LRU LRU LRU,4,3 3 3 3,12,10000,2302,7698,0.2302,7992,2008,0.7992,5690
+configs/exp2/2q_2q_2q.cfg,experiments/data/hot8_scan_c24_seed42.in,2Q 2Q 2Q,3,8 8 8,24,10000,7827,2173,0.7827,7992,2008,0.7992,165
+configs/exp2/2q_2q_2q_2q.cfg,experiments/data/hot8_scan_c24_seed42.in,2Q 2Q 2Q 2Q,4,6 6 6 6,24,10000,7562,2438,0.7562,7992,2008,0.7992,430
+configs/exp2/arc_arc_arc.cfg,experiments/data/hot8_scan_c24_seed42.in,ARC ARC ARC,3,8 8 8,24,10000,7898,2102,0.7898,7992,2008,0.7992,94
+configs/exp2/arc_arc_arc_arc.cfg,experiments/data/hot8_scan_c24_seed42.in,ARC ARC ARC ARC,4,6 6 6 6,24,10000,7550,2450,0.755,7992,2008,0.7992,442
+configs/exp2/lfu_lfu_lfu.cfg,experiments/data/hot8_scan_c24_seed42.in,LFU LFU LFU,3,8 8 8,24,10000,7991,2009,0.7991,7992,2008,0.7992,1
+configs/exp2/lfu_lfu_lfu_lfu.cfg,experiments/data/hot8_scan_c24_seed42.in,LFU LFU LFU LFU,4,6 6 6 6,24,10000,7988,2012,0.7988,7992,2008,0.7992,4
+configs/exp2/lirs_lirs_lirs.cfg,experiments/data/hot8_scan_c24_seed42.in,LIRS LIRS LIRS,3,8 8 8,24,10000,7976,2024,0.7976,7992,2008,0.7992,16
+configs/exp2/lirs_lirs_lirs_lirs.cfg,experiments/data/hot8_scan_c24_seed42.in,LIRS LIRS LIRS LIRS,4,6 6 6 6,24,10000,7564,2436,0.7564,7992,2008,0.7992,428
+configs/exp2/lru_lru_lru.cfg,experiments/data/hot8_scan_c24_seed42.in,LRU LRU LRU,3,8 8 8,24,10000,6145,3855,0.6145,7992,2008,0.7992,1847
+configs/exp2/lru_lru_lru_lru.cfg,experiments/data/hot8_scan_c24_seed42.in,LRU LRU LRU LRU,4,6 6 6 6,24,10000,4862,5138,0.4862,7992,2008,0.7992,3130
+configs/exp2/2q_2q_2q.cfg,experiments/data/hot8_scan_c48_seed42.in,2Q 2Q 2Q,3,16 16 16,48,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/2q_2q_2q_2q.cfg,experiments/data/hot8_scan_c48_seed42.in,2Q 2Q 2Q 2Q,4,12 12 12 12,48,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/arc_arc_arc.cfg,experiments/data/hot8_scan_c48_seed42.in,ARC ARC ARC,3,16 16 16,48,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/arc_arc_arc_arc.cfg,experiments/data/hot8_scan_c48_seed42.in,ARC ARC ARC ARC,4,12 12 12 12,48,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/lfu_lfu_lfu.cfg,experiments/data/hot8_scan_c48_seed42.in,LFU LFU LFU,3,16 16 16,48,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/lfu_lfu_lfu_lfu.cfg,experiments/data/hot8_scan_c48_seed42.in,LFU LFU LFU LFU,4,12 12 12 12,48,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/lirs_lirs_lirs.cfg,experiments/data/hot8_scan_c48_seed42.in,LIRS LIRS LIRS,3,16 16 16,48,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/lirs_lirs_lirs_lirs.cfg,experiments/data/hot8_scan_c48_seed42.in,LIRS LIRS LIRS LIRS,4,12 12 12 12,48,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/lru_lru_lru.cfg,experiments/data/hot8_scan_c48_seed42.in,LRU LRU LRU,3,16 16 16,48,10000,7914,2086,0.7914,7992,2008,0.7992,78
+configs/exp2/lru_lru_lru_lru.cfg,experiments/data/hot8_scan_c48_seed42.in,LRU LRU LRU LRU,4,12 12 12 12,48,10000,7451,2549,0.7451,7992,2008,0.7992,541
+configs/exp2/2q_2q_2q.cfg,experiments/data/hot8_scan_c96_seed42.in,2Q 2Q 2Q,3,32 32 32,96,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/2q_2q_2q_2q.cfg,experiments/data/hot8_scan_c96_seed42.in,2Q 2Q 2Q 2Q,4,24 24 24 24,96,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/arc_arc_arc.cfg,experiments/data/hot8_scan_c96_seed42.in,ARC ARC ARC,3,32 32 32,96,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/arc_arc_arc_arc.cfg,experiments/data/hot8_scan_c96_seed42.in,ARC ARC ARC ARC,4,24 24 24 24,96,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/lfu_lfu_lfu.cfg,experiments/data/hot8_scan_c96_seed42.in,LFU LFU LFU,3,32 32 32,96,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/lfu_lfu_lfu_lfu.cfg,experiments/data/hot8_scan_c96_seed42.in,LFU LFU LFU LFU,4,24 24 24 24,96,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/lirs_lirs_lirs.cfg,experiments/data/hot8_scan_c96_seed42.in,LIRS LIRS LIRS,3,32 32 32,96,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/lirs_lirs_lirs_lirs.cfg,experiments/data/hot8_scan_c96_seed42.in,LIRS LIRS LIRS LIRS,4,24 24 24 24,96,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/lru_lru_lru.cfg,experiments/data/hot8_scan_c96_seed42.in,LRU LRU LRU,3,32 32 32,96,10000,7992,2008,0.7992,7992,2008,0.7992,0
+configs/exp2/lru_lru_lru_lru.cfg,experiments/data/hot8_scan_c96_seed42.in,LRU LRU LRU LRU,4,24 24 24 24,96,10000,7991,2009,0.7991,7992,2008,0.7992,1
+configs/exp2/2q_2q_2q.cfg,experiments/data/phases24_c12_seed42.in,2Q 2Q 2Q,3,4 4 4,12,10000,2376,7624,0.2376,7260,2740,0.726,4884
+configs/exp2/2q_2q_2q_2q.cfg,experiments/data/phases24_c12_seed42.in,2Q 2Q 2Q 2Q,4,3 3 3 3,12,10000,1794,8206,0.1794,7260,2740,0.726,5466
+configs/exp2/arc_arc_arc.cfg,experiments/data/phases24_c12_seed42.in,ARC ARC ARC,3,4 4 4,12,10000,2424,7576,0.2424,7260,2740,0.726,4836
+configs/exp2/arc_arc_arc_arc.cfg,experiments/data/phases24_c12_seed42.in,ARC ARC ARC ARC,4,3 3 3 3,12,10000,1986,8014,0.1986,7260,2740,0.726,5274
+configs/exp2/lfu_lfu_lfu.cfg,experiments/data/phases24_c12_seed42.in,LFU LFU LFU,3,4 4 4,12,10000,1327,8673,0.1327,7260,2740,0.726,5933
+configs/exp2/lfu_lfu_lfu_lfu.cfg,experiments/data/phases24_c12_seed42.in,LFU LFU LFU LFU,4,3 3 3 3,12,10000,1216,8784,0.1216,7260,2740,0.726,6044
+configs/exp2/lirs_lirs_lirs.cfg,experiments/data/phases24_c12_seed42.in,LIRS LIRS LIRS,3,4 4 4,12,10000,2041,7959,0.2041,7260,2740,0.726,5219
+configs/exp2/lirs_lirs_lirs_lirs.cfg,experiments/data/phases24_c12_seed42.in,LIRS LIRS LIRS LIRS,4,3 3 3 3,12,10000,1496,8504,0.1496,7260,2740,0.726,5764
+configs/exp2/lru_lru_lru.cfg,experiments/data/phases24_c12_seed42.in,LRU LRU LRU,3,4 4 4,12,10000,1589,8411,0.1589,7260,2740,0.726,5671
+configs/exp2/lru_lru_lru_lru.cfg,experiments/data/phases24_c12_seed42.in,LRU LRU LRU LRU,4,3 3 3 3,12,10000,1187,8813,0.1187,7260,2740,0.726,6073
+configs/exp2/2q_2q_2q.cfg,experiments/data/phases24_c24_seed42.in,2Q 2Q 2Q,3,8 8 8,24,10000,4679,5321,0.4679,9439,561,0.9439,4760
+configs/exp2/2q_2q_2q_2q.cfg,experiments/data/phases24_c24_seed42.in,2Q 2Q 2Q 2Q,4,6 6 6 6,24,10000,3906,6094,0.3906,9439,561,0.9439,5533
+configs/exp2/arc_arc_arc.cfg,experiments/data/phases24_c24_seed42.in,ARC ARC ARC,3,8 8 8,24,10000,4404,5596,0.4404,9439,561,0.9439,5035
+configs/exp2/arc_arc_arc_arc.cfg,experiments/data/phases24_c24_seed42.in,ARC ARC ARC ARC,4,6 6 6 6,24,10000,3871,6129,0.3871,9439,561,0.9439,5568
+configs/exp2/lfu_lfu_lfu.cfg,experiments/data/phases24_c24_seed42.in,LFU LFU LFU,3,8 8 8,24,10000,2231,7769,0.2231,9439,561,0.9439,7208
+configs/exp2/lfu_lfu_lfu_lfu.cfg,experiments/data/phases24_c24_seed42.in,LFU LFU LFU LFU,4,6 6 6 6,24,10000,2301,7699,0.2301,9439,561,0.9439,7138
+configs/exp2/lirs_lirs_lirs.cfg,experiments/data/phases24_c24_seed42.in,LIRS LIRS LIRS,3,8 8 8,24,10000,4293,5707,0.4293,9439,561,0.9439,5146
+configs/exp2/lirs_lirs_lirs_lirs.cfg,experiments/data/phases24_c24_seed42.in,LIRS LIRS LIRS LIRS,4,6 6 6 6,24,10000,3185,6815,0.3185,9439,561,0.9439,6254
+configs/exp2/lru_lru_lru.cfg,experiments/data/phases24_c24_seed42.in,LRU LRU LRU,3,8 8 8,24,10000,3471,6529,0.3471,9439,561,0.9439,5968
+configs/exp2/lru_lru_lru_lru.cfg,experiments/data/phases24_c24_seed42.in,LRU LRU LRU LRU,4,6 6 6 6,24,10000,2524,7476,0.2524,9439,561,0.9439,6915
+configs/exp2/2q_2q_2q.cfg,experiments/data/phases24_c48_seed42.in,2Q 2Q 2Q,3,16 16 16,48,10000,8278,1722,0.8278,9745,255,0.9745,1467
+configs/exp2/2q_2q_2q_2q.cfg,experiments/data/phases24_c48_seed42.in,2Q 2Q 2Q 2Q,4,12 12 12 12,48,10000,7184,2816,0.7184,9745,255,0.9745,2561
+configs/exp2/arc_arc_arc.cfg,experiments/data/phases24_c48_seed42.in,ARC ARC ARC,3,16 16 16,48,10000,8329,1671,0.8329,9745,255,0.9745,1416
+configs/exp2/arc_arc_arc_arc.cfg,experiments/data/phases24_c48_seed42.in,ARC ARC ARC ARC,4,12 12 12 12,48,10000,6755,3245,0.6755,9745,255,0.9745,2990
+configs/exp2/lfu_lfu_lfu.cfg,experiments/data/phases24_c48_seed42.in,LFU LFU LFU,3,16 16 16,48,10000,4498,5502,0.4498,9745,255,0.9745,5247
+configs/exp2/lfu_lfu_lfu_lfu.cfg,experiments/data/phases24_c48_seed42.in,LFU LFU LFU LFU,4,12 12 12 12,48,10000,4101,5899,0.4101,9745,255,0.9745,5644
+configs/exp2/lirs_lirs_lirs.cfg,experiments/data/phases24_c48_seed42.in,LIRS LIRS LIRS,3,16 16 16,48,10000,8619,1381,0.8619,9745,255,0.9745,1126
+configs/exp2/lirs_lirs_lirs_lirs.cfg,experiments/data/phases24_c48_seed42.in,LIRS LIRS LIRS LIRS,4,12 12 12 12,48,10000,7198,2802,0.7198,9745,255,0.9745,2547
+configs/exp2/lru_lru_lru.cfg,experiments/data/phases24_c48_seed42.in,LRU LRU LRU,3,16 16 16,48,10000,7367,2633,0.7367,9745,255,0.9745,2378
+configs/exp2/lru_lru_lru_lru.cfg,experiments/data/phases24_c48_seed42.in,LRU LRU LRU LRU,4,12 12 12 12,48,10000,5544,4456,0.5544,9745,255,0.9745,4201
+configs/exp2/2q_2q_2q.cfg,experiments/data/phases24_c96_seed42.in,2Q 2Q 2Q,3,32 32 32,96,10000,9555,445,0.9555,9857,143,0.9857,302
+configs/exp2/2q_2q_2q_2q.cfg,experiments/data/phases24_c96_seed42.in,2Q 2Q 2Q 2Q,4,24 24 24 24,96,10000,9413,587,0.9413,9857,143,0.9857,444
+configs/exp2/arc_arc_arc.cfg,experiments/data/phases24_c96_seed42.in,ARC ARC ARC,3,32 32 32,96,10000,9639,361,0.9639,9857,143,0.9857,218
+configs/exp2/arc_arc_arc_arc.cfg,experiments/data/phases24_c96_seed42.in,ARC ARC ARC ARC,4,24 24 24 24,96,10000,9433,567,0.9433,9857,143,0.9857,424
+configs/exp2/lfu_lfu_lfu.cfg,experiments/data/phases24_c96_seed42.in,LFU LFU LFU,3,32 32 32,96,10000,8055,1945,0.8055,9857,143,0.9857,1802
+configs/exp2/lfu_lfu_lfu_lfu.cfg,experiments/data/phases24_c96_seed42.in,LFU LFU LFU LFU,4,24 24 24 24,96,10000,7324,2676,0.7324,9857,143,0.9857,2533
+configs/exp2/lirs_lirs_lirs.cfg,experiments/data/phases24_c96_seed42.in,LIRS LIRS LIRS,3,32 32 32,96,10000,9563,437,0.9563,9857,143,0.9857,294
+configs/exp2/lirs_lirs_lirs_lirs.cfg,experiments/data/phases24_c96_seed42.in,LIRS LIRS LIRS LIRS,4,24 24 24 24,96,10000,9432,568,0.9432,9857,143,0.9857,425
+configs/exp2/lru_lru_lru.cfg,experiments/data/phases24_c96_seed42.in,LRU LRU LRU,3,32 32 32,96,10000,9624,376,0.9624,9857,143,0.9857,233
+configs/exp2/lru_lru_lru_lru.cfg,experiments/data/phases24_c96_seed42.in,LRU LRU LRU LRU,4,24 24 24 24,96,10000,9248,752,0.9248,9857,143,0.9857,609
