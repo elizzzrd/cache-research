@@ -12,8 +12,8 @@
 namespace caches 
 {
     template <typename T, typename KeyT = Key>
-    class LirsCache {
-    private:
+    class LirsCache 
+    {
         enum class Status {
             LIR,
             RESIDENT_HIR,

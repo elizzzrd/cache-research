@@ -16,7 +16,6 @@ namespace caches
     template <typename T>
     class CacheHierarchy 
     {
-    private:
         std::vector<CacheLevel<T>> levels_;
 
         template <typename Loader>

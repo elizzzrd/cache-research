@@ -12,8 +12,8 @@
 namespace caches 
 {
     template <typename T, typename KeyT = Key>          // T - page type
-    class LruCache {
-    private:
+    class LruCache 
+    {
         using Entry = std::pair<KeyT, T>;
         using List = std::list<Entry>;
         using ListIterator = typename List::iterator;   // dependent names

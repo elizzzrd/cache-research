@@ -11,8 +11,8 @@
 namespace caches {
 
     template <typename T, typename KeyT = Key>
-    class TwoQCache {
-    private:
+    class TwoQCache 
+    {
         using Entry = std::pair<KeyT, T>;
         using PageList = std::list<Entry>;
         using PageIterator = typename PageList::iterator;
@@ -134,7 +134,7 @@ namespace caches {
             return capacity_;
         }
 
-        
+
         template <typename Loader>
         LookupResult<T> lookup_update(const KeyT& key, Loader&& load_page) {
 
@@ -154,7 +154,6 @@ namespace caches {
             {
                 PageIterator page_it = found->second;
                 T page = page_it->second;
-;
 
                 am_index_.emplace(key, page_it);
                 a1in_index_.erase(found);

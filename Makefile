@@ -4,7 +4,6 @@
 #   make gtest
 #   make testrun
 #   make check
-#   make e2e
 #   make clean
 #
 #   make gtest GTEST_ARGS="--gtest_filter=ArcCacheTest.*"
@@ -66,7 +65,7 @@ $(TARGET): $(SRC_OBJ)
 	@mkdir -p $(@D)
 	$(CXX) $^ -o $@ $(LDFLAGS) $(LDLIBS)
 
-# Общее правило компиляции с зависимостями от заголовков.
+
 $(OUT_O_DIR)/%.o: %.cpp
 	@mkdir -p $(@D)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -MMD -MP -c $< -o $@

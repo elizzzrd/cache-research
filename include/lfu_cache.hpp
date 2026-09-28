@@ -11,8 +11,8 @@
 namespace caches 
 {
     template <typename T, typename KeyT = Key>
-    class LfuCache {
-    private:
+    class LfuCache 
+    {
         struct Node {
             KeyT key;
             T page;
