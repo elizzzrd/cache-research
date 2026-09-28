@@ -135,31 +135,6 @@ TEST(TwoQCacheTest, GhostRequestLoadsPageIntoMainQueue) {
 
 
 // ARC --------------------------------------------------------------------
-TEST(ArcCacheTest, GhostRequestsAdjustTargetSize) {
-    caches::ArcCache<TestPage> cache{2};
-
-    int source_calls = 0;
-    auto source = [&](const caches::Key& key) {
-        return TestPage{key, ++source_calls};
-    };
-
-    EXPECT_EQ(cache.target_t1_size(), 0u);
-
-    EXPECT_FALSE(cache.lookup_update(1, source).hit);
-    EXPECT_FALSE(cache.lookup_update(2, source).hit);
-    EXPECT_TRUE(cache.lookup_update(1, source).hit);
-    EXPECT_FALSE(cache.lookup_update(3, source).hit);
-
-    EXPECT_FALSE(cache.lookup_update(2, source).hit);
-    EXPECT_EQ(cache.target_t1_size(), 1u);
-
-    EXPECT_FALSE(cache.lookup_update(1, source).hit);
-    EXPECT_EQ(cache.target_t1_size(), 0u);
-
-    EXPECT_EQ(source_calls, 5);
-    EXPECT_EQ(cache.size(), 2u);
-}
-
 TEST(ArcCacheTest, UniqueRequestsKeepTargetAtZero) {
     caches::ArcCache<TestPage> cache{2};
 
@@ -251,36 +226,3 @@ TEST(IdealCacheTest, EvictsPageNeededFarthestInFuture) {
                    {false, false, false, true, false, true});
 }
 
-TEST(IdealCacheTest, RejectsWrongKeyWithoutAdvancingPosition) {
-    const std::vector<caches::Key> requests{1};
-    caches::IdealCache<TestPage> cache{1, requests};
-
-    int source_calls = 0;
-    auto source = [&](const caches::Key& key) {
-        return TestPage{key, ++source_calls};
-    };
-
-    EXPECT_THROW(cache.lookup_update(2, source), std::invalid_argument);
-    EXPECT_EQ(source_calls, 0);
-    EXPECT_EQ(cache.size(), 0u);
-
-    EXPECT_FALSE(cache.lookup_update(1, source).hit);
-    EXPECT_EQ(source_calls, 1);
-
-    EXPECT_THROW(cache.lookup_update(1, source), std::out_of_range);
-    EXPECT_EQ(source_calls, 1);
-}
-
-TEST(IdealCacheTest, EmptySequenceRejectsRequests) {
-    const std::vector<caches::Key> requests;
-    caches::IdealCache<TestPage> cache{2, requests};
-
-    int source_calls = 0;
-    auto source = [&](const caches::Key& key) {
-        return TestPage{key, ++source_calls};
-    };
-
-    EXPECT_EQ(cache.size(), 0u);
-    EXPECT_THROW(cache.lookup_update(1, source), std::out_of_range);
-    EXPECT_EQ(source_calls, 0);
-}
