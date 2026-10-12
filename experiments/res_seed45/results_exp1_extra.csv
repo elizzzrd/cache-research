@@ -1,0 +1,81 @@
+config,input,policies,levels,capacities,total_capacity,requests,system_hits,source_loads,hit_rate,ideal_hits,ideal_source_loads,ideal_hit_rate,excess_source_loads
+configs/exp1/2q.cfg,experiments/data/cyclic24_c12_seed45.in,2Q,1,12,12,10000,0,10000,0.0,4774,5226,0.4774,4774
+configs/exp1/2q_2q.cfg,experiments/data/cyclic24_c12_seed45.in,2Q 2Q,2,6 6,12,10000,0,10000,0.0,4774,5226,0.4774,4774
+configs/exp1/arc.cfg,experiments/data/cyclic24_c12_seed45.in,ARC,1,12,12,10000,0,10000,0.0,4774,5226,0.4774,4774
+configs/exp1/arc_arc.cfg,experiments/data/cyclic24_c12_seed45.in,ARC ARC,2,6 6,12,10000,0,10000,0.0,4774,5226,0.4774,4774
+configs/exp1/lfu.cfg,experiments/data/cyclic24_c12_seed45.in,LFU,1,12,12,10000,0,10000,0.0,4774,5226,0.4774,4774
+configs/exp1/lfu_lfu.cfg,experiments/data/cyclic24_c12_seed45.in,LFU LFU,2,6 6,12,10000,0,10000,0.0,4774,5226,0.4774,4774
+configs/exp1/lirs.cfg,experiments/data/cyclic24_c12_seed45.in,LIRS,1,12,12,10000,4160,5840,0.416,4774,5226,0.4774,614
+configs/exp1/lirs_lirs.cfg,experiments/data/cyclic24_c12_seed45.in,LIRS LIRS,2,6 6,12,10000,4155,5845,0.4155,4774,5226,0.4774,619
+configs/exp1/lru.cfg,experiments/data/cyclic24_c12_seed45.in,LRU,1,12,12,10000,0,10000,0.0,4774,5226,0.4774,4774
+configs/exp1/lru_lru.cfg,experiments/data/cyclic24_c12_seed45.in,LRU LRU,2,6 6,12,10000,0,10000,0.0,4774,5226,0.4774,4774
+configs/exp1/2q.cfg,experiments/data/cyclic24_c24_seed45.in,2Q,1,24,24,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/2q_2q.cfg,experiments/data/cyclic24_c24_seed45.in,2Q 2Q,2,12 12,24,10000,0,10000,0.0,9976,24,0.9976,9976
+configs/exp1/arc.cfg,experiments/data/cyclic24_c24_seed45.in,ARC,1,24,24,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/arc_arc.cfg,experiments/data/cyclic24_c24_seed45.in,ARC ARC,2,12 12,24,10000,0,10000,0.0,9976,24,0.9976,9976
+configs/exp1/lfu.cfg,experiments/data/cyclic24_c24_seed45.in,LFU,1,24,24,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lfu_lfu.cfg,experiments/data/cyclic24_c24_seed45.in,LFU LFU,2,12 12,24,10000,0,10000,0.0,9976,24,0.9976,9976
+configs/exp1/lirs.cfg,experiments/data/cyclic24_c24_seed45.in,LIRS,1,24,24,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lirs_lirs.cfg,experiments/data/cyclic24_c24_seed45.in,LIRS LIRS,2,12 12,24,10000,8306,1694,0.8306,9976,24,0.9976,1670
+configs/exp1/lru.cfg,experiments/data/cyclic24_c24_seed45.in,LRU,1,24,24,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lru_lru.cfg,experiments/data/cyclic24_c24_seed45.in,LRU LRU,2,12 12,24,10000,0,10000,0.0,9976,24,0.9976,9976
+configs/exp1/2q.cfg,experiments/data/cyclic24_c48_seed45.in,2Q,1,48,48,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/2q_2q.cfg,experiments/data/cyclic24_c48_seed45.in,2Q 2Q,2,24 24,48,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/arc.cfg,experiments/data/cyclic24_c48_seed45.in,ARC,1,48,48,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/arc_arc.cfg,experiments/data/cyclic24_c48_seed45.in,ARC ARC,2,24 24,48,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lfu.cfg,experiments/data/cyclic24_c48_seed45.in,LFU,1,48,48,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lfu_lfu.cfg,experiments/data/cyclic24_c48_seed45.in,LFU LFU,2,24 24,48,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lirs.cfg,experiments/data/cyclic24_c48_seed45.in,LIRS,1,48,48,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lirs_lirs.cfg,experiments/data/cyclic24_c48_seed45.in,LIRS LIRS,2,24 24,48,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lru.cfg,experiments/data/cyclic24_c48_seed45.in,LRU,1,48,48,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lru_lru.cfg,experiments/data/cyclic24_c48_seed45.in,LRU LRU,2,24 24,48,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/2q.cfg,experiments/data/cyclic24_c96_seed45.in,2Q,1,96,96,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/2q_2q.cfg,experiments/data/cyclic24_c96_seed45.in,2Q 2Q,2,48 48,96,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/arc.cfg,experiments/data/cyclic24_c96_seed45.in,ARC,1,96,96,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/arc_arc.cfg,experiments/data/cyclic24_c96_seed45.in,ARC ARC,2,48 48,96,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lfu.cfg,experiments/data/cyclic24_c96_seed45.in,LFU,1,96,96,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lfu_lfu.cfg,experiments/data/cyclic24_c96_seed45.in,LFU LFU,2,48 48,96,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lirs.cfg,experiments/data/cyclic24_c96_seed45.in,LIRS,1,96,96,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lirs_lirs.cfg,experiments/data/cyclic24_c96_seed45.in,LIRS LIRS,2,48 48,96,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lru.cfg,experiments/data/cyclic24_c96_seed45.in,LRU,1,96,96,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/lru_lru.cfg,experiments/data/cyclic24_c96_seed45.in,LRU LRU,2,48 48,96,10000,9976,24,0.9976,9976,24,0.9976,0
+configs/exp1/2q.cfg,experiments/data/uniform128_c12_seed45.in,2Q,1,12,12,10000,914,9086,0.0914,3490,6510,0.349,2576
+configs/exp1/2q_2q.cfg,experiments/data/uniform128_c12_seed45.in,2Q 2Q,2,6 6,12,10000,592,9408,0.0592,3490,6510,0.349,2898
+configs/exp1/arc.cfg,experiments/data/uniform128_c12_seed45.in,ARC,1,12,12,10000,934,9066,0.0934,3490,6510,0.349,2556
+configs/exp1/arc_arc.cfg,experiments/data/uniform128_c12_seed45.in,ARC ARC,2,6 6,12,10000,660,9340,0.066,3490,6510,0.349,2830
+configs/exp1/lfu.cfg,experiments/data/uniform128_c12_seed45.in,LFU,1,12,12,10000,903,9097,0.0903,3490,6510,0.349,2587
+configs/exp1/lfu_lfu.cfg,experiments/data/uniform128_c12_seed45.in,LFU LFU,2,6 6,12,10000,842,9158,0.0842,3490,6510,0.349,2648
+configs/exp1/lirs.cfg,experiments/data/uniform128_c12_seed45.in,LIRS,1,12,12,10000,930,9070,0.093,3490,6510,0.349,2560
+configs/exp1/lirs_lirs.cfg,experiments/data/uniform128_c12_seed45.in,LIRS LIRS,2,6 6,12,10000,525,9475,0.0525,3490,6510,0.349,2965
+configs/exp1/lru.cfg,experiments/data/uniform128_c12_seed45.in,LRU,1,12,12,10000,948,9052,0.0948,3490,6510,0.349,2542
+configs/exp1/lru_lru.cfg,experiments/data/uniform128_c12_seed45.in,LRU LRU,2,6 6,12,10000,506,9494,0.0506,3490,6510,0.349,2984
+configs/exp1/2q.cfg,experiments/data/uniform128_c24_seed45.in,2Q,1,24,24,10000,1860,8140,0.186,5071,4929,0.5071,3211
+configs/exp1/2q_2q.cfg,experiments/data/uniform128_c24_seed45.in,2Q 2Q,2,12 12,24,10000,1232,8768,0.1232,5071,4929,0.5071,3839
+configs/exp1/arc.cfg,experiments/data/uniform128_c24_seed45.in,ARC,1,24,24,10000,1870,8130,0.187,5071,4929,0.5071,3201
+configs/exp1/arc_arc.cfg,experiments/data/uniform128_c24_seed45.in,ARC ARC,2,12 12,24,10000,1358,8642,0.1358,5071,4929,0.5071,3713
+configs/exp1/lfu.cfg,experiments/data/uniform128_c24_seed45.in,LFU,1,24,24,10000,1850,8150,0.185,5071,4929,0.5071,3221
+configs/exp1/lfu_lfu.cfg,experiments/data/uniform128_c24_seed45.in,LFU LFU,2,12 12,24,10000,1699,8301,0.1699,5071,4929,0.5071,3372
+configs/exp1/lirs.cfg,experiments/data/uniform128_c24_seed45.in,LIRS,1,24,24,10000,1863,8137,0.1863,5071,4929,0.5071,3208
+configs/exp1/lirs_lirs.cfg,experiments/data/uniform128_c24_seed45.in,LIRS LIRS,2,12 12,24,10000,1080,8920,0.108,5071,4929,0.5071,3991
+configs/exp1/lru.cfg,experiments/data/uniform128_c24_seed45.in,LRU,1,24,24,10000,1882,8118,0.1882,5071,4929,0.5071,3189
+configs/exp1/lru_lru.cfg,experiments/data/uniform128_c24_seed45.in,LRU LRU,2,12 12,24,10000,977,9023,0.0977,5071,4929,0.5071,4094
+configs/exp1/2q.cfg,experiments/data/uniform128_c48_seed45.in,2Q,1,48,48,10000,3746,6254,0.3746,7033,2967,0.7033,3287
+configs/exp1/2q_2q.cfg,experiments/data/uniform128_c48_seed45.in,2Q 2Q,2,24 24,48,10000,2453,7547,0.2453,7033,2967,0.7033,4580
+configs/exp1/arc.cfg,experiments/data/uniform128_c48_seed45.in,ARC,1,48,48,10000,3740,6260,0.374,7033,2967,0.7033,3293
+configs/exp1/arc_arc.cfg,experiments/data/uniform128_c48_seed45.in,ARC ARC,2,24 24,48,10000,2816,7184,0.2816,7033,2967,0.7033,4217
+configs/exp1/lfu.cfg,experiments/data/uniform128_c48_seed45.in,LFU,1,48,48,10000,3732,6268,0.3732,7033,2967,0.7033,3301
+configs/exp1/lfu_lfu.cfg,experiments/data/uniform128_c48_seed45.in,LFU LFU,2,24 24,48,10000,3531,6469,0.3531,7033,2967,0.7033,3502
+configs/exp1/lirs.cfg,experiments/data/uniform128_c48_seed45.in,LIRS,1,48,48,10000,3780,6220,0.378,7033,2967,0.7033,3253
+configs/exp1/lirs_lirs.cfg,experiments/data/uniform128_c48_seed45.in,LIRS LIRS,2,24 24,48,10000,2258,7742,0.2258,7033,2967,0.7033,4775
+configs/exp1/lru.cfg,experiments/data/uniform128_c48_seed45.in,LRU,1,48,48,10000,3790,6210,0.379,7033,2967,0.7033,3243
+configs/exp1/lru_lru.cfg,experiments/data/uniform128_c48_seed45.in,LRU LRU,2,24 24,48,10000,2026,7974,0.2026,7033,2967,0.7033,5007
+configs/exp1/2q.cfg,experiments/data/uniform128_c96_seed45.in,2Q,1,96,96,10000,7475,2525,0.7475,9162,838,0.9162,1687
+configs/exp1/2q_2q.cfg,experiments/data/uniform128_c96_seed45.in,2Q 2Q,2,48 48,96,10000,4802,5198,0.4802,9162,838,0.9162,4360
+configs/exp1/arc.cfg,experiments/data/uniform128_c96_seed45.in,ARC,1,96,96,10000,7486,2514,0.7486,9162,838,0.9162,1676
+configs/exp1/arc_arc.cfg,experiments/data/uniform128_c96_seed45.in,ARC ARC,2,48 48,96,10000,4801,5199,0.4801,9162,838,0.9162,4361
+configs/exp1/lfu.cfg,experiments/data/uniform128_c96_seed45.in,LFU,1,96,96,10000,7449,2551,0.7449,9162,838,0.9162,1713
+configs/exp1/lfu_lfu.cfg,experiments/data/uniform128_c96_seed45.in,LFU LFU,2,48 48,96,10000,7175,2825,0.7175,9162,838,0.9162,1987
+configs/exp1/lirs.cfg,experiments/data/uniform128_c96_seed45.in,LIRS,1,96,96,10000,7458,2542,0.7458,9162,838,0.9162,1704
+configs/exp1/lirs_lirs.cfg,experiments/data/uniform128_c96_seed45.in,LIRS LIRS,2,48 48,96,10000,4781,5219,0.4781,9162,838,0.9162,4381
+configs/exp1/lru.cfg,experiments/data/uniform128_c96_seed45.in,LRU,1,96,96,10000,7490,2510,0.749,9162,838,0.9162,1672
+configs/exp1/lru_lru.cfg,experiments/data/uniform128_c96_seed45.in,LRU LRU,2,48 48,96,10000,4346,5654,0.4346,9162,838,0.9162,4816

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <list>
+#include <optional>
 #include <unordered_map>
 #include <utility>
 #include <stdexcept>
@@ -22,7 +23,7 @@ namespace caches
 
         struct Entry {
             KeyT key;
-            T page;
+            std::optional<T> page; // ghost entry has no resident page.
             Status status;
         };
 
@@ -44,28 +45,32 @@ namespace caches
         std::unordered_map<KeyT, StackIterator> stack_index_;
         std::unordered_map<KeyT, QueueIterator> queue_index_;
 
-        void prune_stack() {
-        while (!stack_s_.empty()) {
-            const KeyT bottom_key = stack_s_.back();
-            auto found = table_.find(bottom_key);
+        void prune_stack() 
+        {
+            while (!stack_s_.empty()) {
+                const KeyT bottom_key = stack_s_.back();
+                auto found = table_.find(bottom_key);
 
-            if (found == table_.end()) 
-                throw std::logic_error("LIRS: stack key is missing from table");
+                if (found == table_.end()) 
+                    throw std::logic_error("LIRS: stack key is missing from table");
 
-            if (found->second.status == Status::LIR) 
-                break;
+                if (found->second.status == Status::LIR) 
+                    break;
 
-            const bool is_non_resident = found->second.status == Status::NON_RESIDENT_HIR;
+                const bool is_non_resident = found->second.status == Status::NON_RESIDENT_HIR;
 
-            stack_index_.erase(bottom_key);
-            stack_s_.pop_back();
+                stack_index_.erase(bottom_key);
+                stack_s_.pop_back();
 
-            if (is_non_resident) 
-                table_.erase(found);
+                if (is_non_resident) 
+                    table_.erase(found);
         }
     }
 
         void add_to_stack(const KeyT& key) {
+            if (lir_limit_ == 0) {
+                return;
+            }
             stack_s_.push_front(key);
             try {
                 stack_index_.emplace(key, stack_s_.begin());
@@ -115,7 +120,7 @@ namespace caches
             if (found != table_.end()) {
                 if (stack_index_.find(victim_key) != stack_index_.end()) {
                     found->second.status = Status::NON_RESIDENT_HIR;
-                    found->second.page = T{};
+                    found->second.page.reset();
                 } else {
                     table_.erase(found);
                 }
@@ -132,7 +137,7 @@ namespace caches
             stack_index_.erase(demoted_key);
             stack_s_.pop_back();
 
-            table_[demoted_key].status = Status::RESIDENT_HIR;
+            table_.at(demoted_key).status = Status::RESIDENT_HIR;
             add_to_queue(demoted_key);
             --lir_count_;
 
@@ -168,12 +173,12 @@ namespace caches
         }
 
         template <typename Loader>
-        LookupResult<T> lookup_update(const Key& key, Loader&& load) 
+        LookupResult<T> lookup_update(const KeyT& key, Loader&& load)
         {
             auto found = table_.find(key);
 
             if (found != table_.end() && found->second.status == Status::LIR) {
-                T page = found->second.page;
+                T page = *found->second.page;
 
                 auto s_it = stack_index_.find(key);
                 if (s_it != stack_index_.end()) {
@@ -185,7 +190,7 @@ namespace caches
             }
 
             if (found != table_.end() && found->second.status == Status::RESIDENT_HIR) {
-                T page = found->second.page;
+                T page = *found->second.page;
                 auto s_it = stack_index_.find(key);
 
                 if (s_it != stack_index_.end()) {
@@ -224,7 +229,7 @@ namespace caches
             free_one_place();
 
             if (is_ghost) {
-                found->second.page = page;
+                found->second.page.emplace(page);
                 found->second.status = Status::LIR;
                 ++lir_count_;
 
@@ -239,7 +244,7 @@ namespace caches
                     demote_bottom_lir_to_hir();
                 }
             } else {
-                table_.insert_or_assign(key, Entry{key, page, Status::RESIDENT_HIR});
+                table_.emplace(key, Entry{key, page, Status::RESIDENT_HIR});
                 add_to_queue(key);
                 add_to_stack(key);
             }
@@ -248,4 +253,4 @@ namespace caches
         }
     };
 
-} 
+}

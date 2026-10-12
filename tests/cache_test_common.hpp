@@ -4,6 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <cstddef>
+#include <unordered_map>
 #include <vector>
 
 namespace cache_tests 
@@ -29,22 +30,26 @@ namespace cache_tests
         ASSERT_EQ(cache.size(), 0u) << "This helper expects a fresh cache";
 
         TestPageLoader source;
+        std::unordered_map<caches::Key, int> expected_generations;
+        int expected_load_count = 0;
 
         for (std::size_t position = 0; position < requests.size(); ++position) {
             const auto key = requests[position];
 
             SCOPED_TRACE(::testing::Message() << "position=" << position << ", key=" << key);
 
-            const int loads_before_request = source.load_count;
+            if (!expected_hits[position]) {
+                expected_generations[key] = ++expected_load_count;
+            }
+            const auto expected = expected_generations.find(key);
+            ASSERT_NE(expected, expected_generations.end()) << "Hit before the first expected load";
             const auto result = cache.lookup_update(key, source);
 
             EXPECT_EQ(result.hit, expected_hits[position]);
             EXPECT_EQ(result.value.id, key);
+            EXPECT_EQ(result.value.generation, expected->second);
             EXPECT_LE(cache.size(), cache.capacity());
-
-            const int expected_source_loads = loads_before_request + (expected_hits[position] ? 0 : 1);
-
-            EXPECT_EQ(source.load_count, expected_source_loads);
+            EXPECT_EQ(source.load_count, expected_load_count);
         }
     }
 
@@ -64,7 +69,7 @@ namespace cache_tests
         for (int repeat = 0; repeat < 3; ++repeat) {
             SCOPED_TRACE(::testing::Message() << "repeat=" << repeat);
 
-            const auto result = cache.lookup_update(7, source);
+            const auto result = cache.lookup_update(key, source);
 
             EXPECT_TRUE(result.hit);
             EXPECT_EQ(result.value.id, key);
@@ -75,4 +80,4 @@ namespace cache_tests
         EXPECT_EQ(cache.size(), 1u);
     }
       
-} 
+}

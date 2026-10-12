@@ -101,7 +101,7 @@ namespace caches
         }
 
         template <typename Loader>
-        LookupResult<T> lookup_update(const Key& key, Loader&& load) {
+        LookupResult<T> lookup_update(const KeyT& key, Loader&& load) {
             if (auto found = index_.find(key); found != index_.end()) {
                 NodeIterator node_it = found->second;
                 T page = node_it->page;
