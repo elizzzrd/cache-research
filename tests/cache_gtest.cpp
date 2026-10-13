@@ -21,7 +21,7 @@ using cache_tests::check_requests;
 
 namespace 
 {
-    const std::vector<caches::Key> repeated_requests{7, 7};
+    const std::vector<caches::Key> repeated_requests(1001, 7);
     const std::vector<caches::Key> copy_requests{7, 7, 7};
     const std::vector<caches::Key> zero_requests{1, 1, 2, 1};
     const std::vector<caches::Key> one_requests{1, 2, 1, 1, 3, 3, 2};
@@ -41,6 +41,7 @@ namespace
     void check_lookup_result(Cache& cache) {
         PageLoader<> load;
         const caches::Key key = 7;
+
         auto first = cache.lookup_update(key, load);
         static_assert(std::is_same_v<decltype(first), caches::LookupResult<TestPage>>);
         static_assert(std::is_same_v<decltype(first.value), TestPage>);
@@ -50,17 +51,21 @@ namespace
         EXPECT_EQ(load.calls, 1);
         EXPECT_EQ(cache.size(), 1u);
 
-        const auto second = cache.lookup_update(key, load);
-        EXPECT_TRUE(second.hit);
-        expect_page(second.value, 1);
-        EXPECT_EQ(load.calls, 1);
-        EXPECT_EQ(cache.size(), 1u);
+        for (int repeat = 0; repeat < 1000; ++repeat) {
+            SCOPED_TRACE(repeat);
+            const auto result = cache.lookup_update(key, load);
+            EXPECT_TRUE(result.hit);
+            expect_page(result.value, 1);
+            EXPECT_EQ(load.calls, 1);
+            EXPECT_EQ(cache.size(), 1u);
+        }
     }
 
     template <typename Cache>
     void check_returned_copy(Cache& cache) {
         PageLoader<> load;
         const caches::Key key = 7;
+
         auto first = cache.lookup_update(key, load);
         first.value.payload = "changed after miss";
         first.value.data_.clear();
@@ -89,13 +94,13 @@ namespace
     };
 
     template <typename Cache>
-    void check_failed_load(Cache& cache) {
+    void check_failed_load(Cache& cache) 
+    {
         FailingLoader load;
 
         EXPECT_FALSE(cache.lookup_update("saved", load).hit);
         EXPECT_THROW(cache.lookup_update("broken", load), std::runtime_error);
         EXPECT_EQ(cache.size(), 1u);
-
         const auto result = cache.lookup_update("saved", load);
         EXPECT_TRUE(result.hit);
         expect_page(result.value, 1);
@@ -104,7 +109,6 @@ namespace
 } 
 
 
-// Common tests for five online caches, grouped by key type.
 template <typename KeyT>
 using CacheTypes = ::testing::Types<
     caches::LruCache<TestPage, KeyT>,
@@ -157,7 +161,6 @@ TYPED_TEST(CacheContract, CapacityOneReplacesPreviousPage) {
     check_requests(cache, one_requests, {false, false, false, true, false, true, false});
     EXPECT_EQ(cache.size(), 1u);
 }
-
 
 TYPED_TEST(StringKeyContract, SupportsStringKeys) {
     TypeParam cache{4};
@@ -217,7 +220,7 @@ TEST(IdealCacheContract, DoesNotNarrowIntegerKeys) {
 }
 
 
-// ----------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
 TEST(LruCacheContract, HitUpdatesEvictionOrder) {
     caches::LruCache<TestPage> cache{2};
     check_requests(cache,
@@ -225,6 +228,15 @@ TEST(LruCacheContract, HitUpdatesEvictionOrder) {
                    {false, false, true, false, true, false});
 }
 
+TEST(LruCacheContract, RepeatedHitOnFrontPreservesEvictionOrder) {
+    caches::LruCache<TestPage> cache{3};
+    check_requests(cache,
+                   {1, 2, 3, 3, 3, 4, 2, 3, 1},
+                   {false, false, false, true, true, false, true, true, false});
+    EXPECT_EQ(cache.size(), 3u);
+}
+
+// ------------------------------------------------------------------------------
 TEST(TwoQCacheContract, RepeatedPageSurvivesNewRequests) {
     caches::TwoQCache<TestPage> cache{2};
     check_requests(cache,
@@ -239,6 +251,21 @@ TEST(TwoQCacheContract, GhostRequestLoadsPageIntoMainQueue) {
                    {false, false, true, false, false, false, true});
 }
 
+TEST(TwoQCacheContract, EmptyRecentQueueEvictsFromMainQueue) {
+    caches::TwoQCache<TestPage> cache{2};
+    check_requests(cache,
+                   {1, 1, 2, 2, 3, 2, 1},
+                   {false, true, false, true, false, true, false});
+}
+
+TEST(TwoQCacheContract, ForgottenGhostIsInsertedAsNewPage) {
+    caches::TwoQCache<TestPage> cache{2};
+    check_requests(cache,
+                   {1, 1, 2, 3, 4, 2, 5, 1},
+                   {false, true, false, false, false, false, false, true});
+}
+
+// ---------------------------------------------------------------------------------
 TEST(ArcCacheContract, UniqueRequestsKeepTargetAtZero) {
     caches::ArcCache<TestPage> cache{2};
     check_requests(cache,
@@ -247,6 +274,48 @@ TEST(ArcCacheContract, UniqueRequestsKeepTargetAtZero) {
     EXPECT_EQ(cache.target_t1_size(), 0u);
 }
 
+TEST(ArcCacheContract, GhostHitsIncreaseAndDecreaseTarget) {
+    caches::ArcCache<TestPage> cache{2};
+    PageLoader<> load;
+
+    const std::vector<caches::Key> requests{1, 2, 1, 3, 2, 1};
+    const std::vector<bool> hits{false, false, true, false, false, false};
+    const std::vector<int> page_ids{1, 2, 1, 3, 4, 5};
+    const std::vector<std::size_t> targets{0, 0, 0, 0, 1, 0};
+    
+    int expected_calls = 0;
+    for (std::size_t i = 0; i < requests.size(); ++i) {
+        SCOPED_TRACE(i);
+        if (!hits[i]) {
+            ++expected_calls;
+        }
+        const auto result = cache.lookup_update(requests[i], load);
+        EXPECT_EQ(result.hit, hits[i]);
+        expect_page(result.value, page_ids[i]);
+        EXPECT_EQ(load.calls, expected_calls);
+        EXPECT_EQ(cache.target_t1_size(), targets[i]);
+        EXPECT_LE(cache.size(), cache.capacity());
+    }
+}
+
+TEST(ArcCacheContract, TargetStaysWithinCapacityDuringMixedRequests) {
+    for (const std::size_t capacity : std::vector<std::size_t>{1, 2, 3, 10}) {
+        SCOPED_TRACE(capacity);
+        caches::ArcCache<TestPage> cache{capacity};
+        PageLoader<> load;
+        for (int i = 0; i < 300; ++i) {
+            SCOPED_TRACE(i);
+            // Alternate a small working set and a scan of different keys.
+            const caches::Key key = static_cast<caches::Key>(
+                i % 30 < 15 ? i % 3 : 3 + i % 17);
+            cache.lookup_update(key, load);
+            EXPECT_LE(cache.target_t1_size(), capacity);
+            EXPECT_LE(cache.size(), capacity);
+        }
+    }
+}
+
+// --------------------------------------------------------------------------------------
 TEST(LfuCacheContract, EvictsLessFrequentPage) {
     caches::LfuCache<TestPage> cache{2};
     check_requests(cache,
@@ -269,6 +338,14 @@ TEST(LfuCacheContract, ReloadedPageStartsWithFrequencyOne) {
                     false, false, false, true, false});
 }
 
+TEST(LfuCacheContract, EmptyNonMinimumBucketDoesNotChangeMinimum) {
+    caches::LfuCache<TestPage> cache{3};
+    check_requests(cache,
+                   {1, 2, 3, 1, 1, 4, 1, 3, 2},
+                   {false, false, false, true, true, false, true, true, false});
+}
+
+// ---------------------------------------------------------------------------------------
 TEST(LirsCacheContract, ResidentHirInStackBecomesLir) {
     caches::LirsCache<TestPage> cache{2};
     check_requests(cache,
@@ -290,6 +367,15 @@ TEST(LirsCacheContract, PrunedGhostIsTreatedAsNewPage) {
                    {false, false, false, true, false, false, true});
 }
 
+TEST(LirsCacheContract, ResidentHirOutsideStackReturnsToStack) {
+    caches::LirsCache<TestPage> cache{3};
+    check_requests(cache,
+                   {1, 2, 3, 1, 3, 2, 4, 2, 5, 2},
+                   {false, false, false, true, true, true, false, false, false, true});
+    EXPECT_EQ(cache.size(), 3u);
+}
+
+// -------------------------------------------------------------------------------------
 TEST(IdealCacheContract, EvictsPageNeededFarthestInFuture) {
     const std::vector<caches::Key> requests{1, 2, 3, 1, 2, 3};
     caches::IdealCache<TestPage> cache{2, requests};
@@ -298,3 +384,22 @@ TEST(IdealCacheContract, EvictsPageNeededFarthestInFuture) {
                    {false, false, false, true, false, true});
 }
 
+TEST(IdealCacheContract, EmptyRequestSequence) {
+    const std::vector<caches::Key> requests;
+    caches::IdealCache<TestPage> cache{2, requests};
+    check_construction(cache, 2);
+}
+
+TEST(IdealCacheContract, EvictsPageWithNoFutureRequests) {
+    const std::vector<caches::Key> requests{1, 2, 3, 1, 3};
+    caches::IdealCache<TestPage> cache{2, requests};
+    check_requests(cache, requests, {false, false, false, true, true});
+}
+
+TEST(IdealCacheContract, UniqueRequestsDoNotRequireATieBreakingOrder) {
+    const std::vector<caches::Key> requests{1, 2, 3, 4, 5};
+    caches::IdealCache<TestPage> cache{2, requests};
+
+    check_requests(cache, requests, {false, false, false, false, false});
+    EXPECT_EQ(cache.size(), 2u);
+}
