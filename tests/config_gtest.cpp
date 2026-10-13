@@ -15,7 +15,7 @@ namespace cache_tests
 {
     class TemporaryConfig
     {
-
+        
     TemporaryConfig(const TemporaryConfig&) = delete;
     TemporaryConfig& operator=(const TemporaryConfig&) = delete;
     

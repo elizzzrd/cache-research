@@ -4,80 +4,64 @@
 
 #include <gtest/gtest.h>
 #include <cstddef>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
-namespace cache_tests 
-{
+namespace cache_tests {
+
     struct TestPage {
-        caches::Key id;
-        int generation;
+        const int load_id_;
+        std::string payload;
+        std::vector<int> data_;
+
+        explicit TestPage(int number)
+            : load_id_(number),
+            payload("loaded-page-" + std::to_string(number)),
+            data_{number, number + 100} {}
     };
 
-    struct TestPageLoader {
-            int load_count = 0;
+    template <typename KeyT = caches::Key>
+    struct PageLoader {
+        int calls = 0;
 
-            TestPage operator()(const caches::Key& key) {
-                ++load_count;
-                return TestPage{key, load_count};
-            }
+        TestPage operator()(const KeyT&) {
+            return TestPage{++calls};
+        }
     };
 
-    template <typename Cache>
-    void check_requests(Cache& cache, const std::vector<caches::Key>& requests,
-                        const std::vector<bool>& expected_hits) {
+    inline void expect_page(const TestPage& page, int number) {
+        EXPECT_EQ(page.load_id_, number);
+        EXPECT_EQ(page.payload, "loaded-page-" + std::to_string(number));
+        EXPECT_EQ(page.data_, (std::vector<int>{number, number + 100}));
+    }
+
+    template <typename Cache, typename KeyT = caches::Key>
+    void check_requests(Cache& cache, const std::vector<KeyT>& requests,
+                        const std::vector<bool>& expected_hits) 
+    {
         ASSERT_EQ(requests.size(), expected_hits.size());
-        ASSERT_EQ(cache.size(), 0u) << "This helper expects a fresh cache";
+        ASSERT_EQ(cache.size(), 0u);
 
-        TestPageLoader source;
-        std::unordered_map<caches::Key, int> expected_generations;
-        int expected_load_count = 0;
+        PageLoader<KeyT> source;
+        std::unordered_map<KeyT, int> expected_ids;
+        int expected_calls = 0;
 
         for (std::size_t position = 0; position < requests.size(); ++position) {
-            const auto key = requests[position];
-
-            SCOPED_TRACE(::testing::Message() << "position=" << position << ", key=" << key);
-
+            SCOPED_TRACE(position);
+            const KeyT& key = requests[position];
             if (!expected_hits[position]) {
-                expected_generations[key] = ++expected_load_count;
+                expected_ids[key] = ++expected_calls;
             }
-            const auto expected = expected_generations.find(key);
-            ASSERT_NE(expected, expected_generations.end()) << "Hit before the first expected load";
-            const auto result = cache.lookup_update(key, source);
+            const auto expected = expected_ids.find(key);
+            ASSERT_NE(expected, expected_ids.end());
 
+            const auto result = cache.lookup_update(key, source);
             EXPECT_EQ(result.hit, expected_hits[position]);
-            EXPECT_EQ(result.value.id, key);
-            EXPECT_EQ(result.value.generation, expected->second);
+            expect_page(result.value, expected->second);
+            EXPECT_EQ(source.calls, expected_calls);
             EXPECT_LE(cache.size(), cache.capacity());
-            EXPECT_EQ(source.load_count, expected_load_count);
         }
     }
 
-    template <typename Cache>
-    void check_repeated_requests(Cache& cache, const caches::Key& key) {
-        ASSERT_EQ(cache.size(), 0u) << "Expected an empty cache";
-        ASSERT_GT(cache.capacity(), 0u);
-
-        TestPageLoader source;
-
-        const auto first_result = cache.lookup_update(key, source);
-
-        EXPECT_FALSE(first_result.hit);
-        EXPECT_EQ(first_result.value.id, key);
-        EXPECT_EQ(first_result.value.generation, 1);
-
-        for (int repeat = 0; repeat < 3; ++repeat) {
-            SCOPED_TRACE(::testing::Message() << "repeat=" << repeat);
-
-            const auto result = cache.lookup_update(key, source);
-
-            EXPECT_TRUE(result.hit);
-            EXPECT_EQ(result.value.id, key);
-            EXPECT_EQ(result.value.generation, 1);
-        }
-        
-        EXPECT_EQ(source.load_count, 1);
-        EXPECT_EQ(cache.size(), 1u);
-    }
-      
-}
+} 
