@@ -70,6 +70,9 @@ namespace caches {
                 build_new_request_positions();
             }
 
+        IdealCache(const IdealCache&) = delete;
+        IdealCache& operator=(const IdealCache&) = delete;
+
         std::size_t size() const noexcept {
             return pages_.size();
         }

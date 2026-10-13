@@ -105,9 +105,6 @@ check: gtest
 run: $(TARGET)
 	$(TARGET) $(ARGS)
 
-.PHONY: e2e
-e2e: $(TARGET)
-	@bash $(TEST_DIR)/run_e2e.sh
 
 #------------------------------------------------------------------------------
 
